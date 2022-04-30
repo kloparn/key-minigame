@@ -6,20 +6,20 @@
   border-radius: 10px;
   padding: 1rem 10px 1rem 10px;
   display: inline-block;
-  margin-right: 5px;
-  margin-left: 5px;
+  margin: 10px;
 }
 </style>
 
 <template>
   <div class="button-border">
-    <p>{{ randomKey() }}</p>
+    <p style="text-shadow: 1px 1px 0px black;">{{ writeKey }}</p>
   </div>
 </template>
 
 <script setup>
-const possibleKeys = ["A", "S", "D", "E", "W", "Q"];
+import { defineProps } from "vue";
 
-const randomKey = () =>
-  possibleKeys[Math.floor(Math.random() * (possibleKeys.length - 1))];
+defineProps({
+  writeKey: String,
+});
 </script>
