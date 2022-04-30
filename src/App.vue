@@ -26,8 +26,8 @@ input::-webkit-inner-spin-button {
 }
 
 button {
-  margin-left: 20px;
-  padding: 10px 0 10px;
+  margin: 20px;
+  padding: 10px 10px;
   font-size: 2rem;
   background-color: transparent;
   color: white;
@@ -43,30 +43,48 @@ button:hover {
 
 <template>
   <div>
-    <GenerateKeys :amount="amount" />
     <input 
       class="input-field" 
       type="number" 
-      v-model="amount" 
-      placeholder="amount of keys">
-    <button v-on:click="randomizeKeys()">Randomize keys</button>
+      v-model="keyAmount" 
+      placeholder="amount of keys"
+      @input="onInput">
+    <button @click="randomizeKeys">Randomize keys</button>
+    <KeyContainer :keys="keys" />
+    <button @click="startGame">
+      Go
+    </button>
   </div>
 </template>
 
 <script setup>
-import GenerateKeys from "./components/GenerateKeys.vue";
-import { ref } from "vue";
-let amount = ref(null);
+import KeyContainer from "./components/KeyContainer.vue";
+import { computed, ref } from "vue";
+let keys = ref([]);
+let keyAmount = ref(null);
+
+const possibleKeys = ["A", "S", "D", "E", "W", "Q"];
+
+const onInput = () => {
+  if (keyAmount.value > 9) keyAmount.value = 9; 
+  randomizeKeys();
+}
 
 const randomizeKeys = () => {
-  const tempHolder = amount.value;
-  amount.value = 0;;
-  // To make the component actually update
-  // we set a 1ms timeout to force a re-render
-  setTimeout(() => { 
-    amount.value = tempHolder;
-  }, 1);
-};
+  const keyDiv = [];
+  for (let i = 0; i < keyAmount.value; i++) {
+    const keyObject = {
+      status: ""
+    }
+    keyObject.key = possibleKeys[Math.floor(Math.random() * (possibleKeys.length - 1))];
+    keyDiv.push(keyObject);
+  }
+  keys.value = keyDiv;
+}
+
+const startGame = () => {
+  
+}
 
 </script>
 
