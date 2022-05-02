@@ -6,11 +6,11 @@
 }
 
 .selected {
-  background-color: red;
+  border: solid white 4px;
 }
 
 .done {
-  background-color: yellow;
+  visibility: hidden;
 }
 
 .default {
