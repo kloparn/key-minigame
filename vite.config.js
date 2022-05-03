@@ -5,9 +5,8 @@ import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
-  root: path.resolve(__dirname, "src"),
   base: process.env.NODE_ENV === "production" ? "/key-minigame.github.io/" : "/",
   build: {
-    outDir: "../dist",
+    outDir: "/dist",
   },
 });
